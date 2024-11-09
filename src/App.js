@@ -2,35 +2,97 @@ import logo from './logo.svg';
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import Header from './components/Header';
-
+import axios from 'axios';
 
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); 
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user_id, setUserId] = useState(''); 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [firstname, setFirstname] = useState('');
   const [lastname, setLastname] = useState('');
-  const [date_creation, setDateCreation] = useState('');
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [todos, setTodos] = useState([]);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword); // Toggle the show/hide password state
 };
 
-
-  const handleSubmit = (e) => {
-    
-    if (email && password) {
-        setError(''); // Clear any previous error
-        setIsLoggedIn(true);
-        // Logic for handling sign-in can go here (API call, etc.)
-        console.log('Sign-In Successful!', { email, password });
+const fetchData = async (userId) => {
+  try {
+    // Dynamically interpolate user_id into the URL
+    const response = await fetch(`http://localhost:5000/todos/${userId}`, {
+      method: 'GET',  // Use GET method to fetch data
+      headers: {
+        'Content-Type': 'application/json',  // This tells the server the expected response type, but no body is included in GET
+      }
+    });
+  
+    // Check if the request was successful (status code 2xx)
+    if (!response.ok) {
+      const errorData = await response.json();
+      setError(errorData.message || 'Something went wrong!');
     } else {
-        setError('Please enter both email and password');
+      // Handle the response data (if successful)
+      const data = await response.json();
+      setTodos(data);
+      console.log(data);
+      console.log(userId);
+
+      // Do something with the response data, for example, storing it in state
     }
+  
+  } catch (error) {
+    setError('Something went wrong! Please try again.');
+  }
+}
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Create the payload (data) to send in the POST request
+    const payload = {
+      email,
+      password,
+    };
+
+    try {
+      // Make the POST request using fetch
+      const response = await fetch('http://localhost:5000/signin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', // Tells the server to expect JSON data
+        },
+        body: JSON.stringify(payload), // Send the payload as a JSON string
+      });
+
+      // Check if the response is OK (status 200)
+      if (response.ok) {
+        const data = await response.json(); // Parse the JSON response
+        setIsLoggedIn(true);// Store the token in the state
+        setError('');
+
+        setEmail(data.email);
+        setUserId(data.user_id);
+        setFirstname(data.firstname);
+        setLastname(data.lastname);
+        console.log(firstname);
+        alert('Login successful!');
+
+        fetchData(data.user_id);
+
+      } else {
+        const errorData = await response.json();
+        setError(errorData.message || 'Login failed');
+      }
+    } catch (error) {
+      setError('Something went wrong! Please try again.');
+    }
+
   };
 
   return (
@@ -47,7 +109,7 @@ function App() {
               
               {isLoggedIn ? (
                     <div>
-                        <li className="inline" style={{paddingRight:"30px"}}><a>Hi,  Firstname</a></li>
+                        <li className="inline" style={{paddingRight:"30px"}}><a>Hi,  {firstname} {lastname}</a></li>
                         <button className="btn" onClick={() => setIsLoggedIn(false)}>Logout</button>
                     </div>
               ) : null}
@@ -59,14 +121,71 @@ function App() {
       
       <div className='body'>
           {isLoggedIn ? (
-                    <p>Welcome, {email}</p>
+                    <div style={{padding: "70px 0px 0 100px", color:"white"}}>
+                      <div className='inline'>
+                        <p style={{fontSize:"25px"}}>Quick Todo</p><br></br>
+                        <form >
+                          <div className='form-item2'>
+                              <p>Title</p>
+                              <input
+                                  type="email"
+                                  style={{height:"30px", width:"300px"}}
+                              />
+                          </div>
+                          <div className='form-item2'>
+                              <p>Date</p>
+                              <input
+                                  type="date"
+                                  style={{height:"30px", width:"300px"}}
+                                  required
+                              />
+                          </div>
+                          <div className='form-item2'>
+                              <p>Description</p>
+                          
+                              <textarea
+                                 // Bind the value of textarea to state
+                                // Update state when text changes
+                                style={{height:"100px", width:"300px"}}
+                                placeholder="Type here..."
+                                rows="5" // Sets the height of the textarea
+                                cols="50" // Sets the width of the textarea
+                                required
+                              />
+                          </div>
+                          
+                          <button type='submit' className="btn">Add todo</button>
+                        </form>
+                      </div>
+                      <div className='inline' style={{paddingLeft:"300px"}}>
+                          <p style={{fontSize:"25px"}}>User informations</p><br></br>
+                          <p>ID : {user_id}</p><br></br>
+                          <p>Firstname : {firstname}</p><br></br>
+                          <p>Lastname : {lastname}</p><br></br>
+                          <p>Email : {email}</p><br></br><br></br>
+                          <p style={{fontSize:"25px"}}>Tasks</p><br></br>
+                          <table>
+                            <thead>
+                              <th>To Do</th>
+                              <th>Done</th>
+                              <th>Total</th>
+                            </thead>
+                            <tbody>
+                              <td>1</td>
+                              <td>0</td>
+                              <td>{todos.length}</td>
+                            </tbody>
+                          </table><br></br><br></br>
+                      </div>
+                    </div>
               ) : 
             (
               <div className="login-form">
             <h2>Sign In</h2>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
+            
             <div className='container-login'>
               <form onSubmit={handleSubmit}>
+                  {error && <p style={{ color: 'red', paddingBottom:10 }}>{error}</p>}
                   <div className='form-item'>
                       <input
                           type="email"
@@ -87,6 +206,7 @@ function App() {
                           required
                       />
                   </div>
+                  
                   <div className='form-item'>
                     <label>
                         <input
@@ -104,6 +224,28 @@ function App() {
             )  
             }
       </div>
+
+
+      {isLoggedIn ? (
+        <div>
+        <center><br></br><br></br><br></br>
+          <p style={{fontWeight:"bold"}}>TODOS</p><br></br><br></br><br></br>
+
+          <ul>
+            {todos.map((todo) => (
+              <div key={todo.id} style={{border: "2px solid black", width:"15%", borderRadius:"5%"}}>
+                <br></br>
+                <p style={{fontWeight:"bold"}}>{todo.title} </p>
+                <p><i>{todo.date}</i></p><br></br>
+                <hr style={{width:"80%"}}></hr><br></br>
+                <p>{todo.description}</p><br></br><br></br><br></br>
+              </div>
+            ))}
+          </ul><br></br>
+        </center>
+      </div>
+      ) : null}
+      
     </div>
   );
 }
