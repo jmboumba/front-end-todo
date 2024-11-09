@@ -67,4 +67,38 @@
   border-radius: 5px; /* Facultatif : ajoute un arrondi aux coins */
 }
 
+.body{
+  background-image: url('../public/back.jpg');
+    background-size: cover; /* Optional: covers the entire background */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    background-position: center; /* Centers the image */
+    height: 522px;
+}
+
+.login-form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  padding: 7%;
+}
+
+.container-login{
+  background-color: blue;
+  height: 300px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.form-item{
+  padding: 0 0 25px;
+}
+
+
+
 
