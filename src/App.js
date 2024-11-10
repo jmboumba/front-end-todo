@@ -24,8 +24,10 @@ function App() {
 const fetchData = async (userId) => {
   try {
     // Dynamically interpolate user_id into the URL
-    const response = await fetch(`https://back-end-todo-production.up.railway.app/${userId}`, {
+    const response = await fetch(`${process.env.REACT_BACKEND_URL}/todos/${userId}`, {
       method: 'GET',  // Use GET method to fetch data
+      mode: 'cors',           // Enable CORS
+      credentials: 'include',  // Include cookies if needed
       headers: {
         'Content-Type': 'application/json',  // This tells the server the expected response type, but no body is included in GET
       }
@@ -62,8 +64,10 @@ const fetchData = async (userId) => {
 
     try {
       // Make the POST request using fetch
-      const response = await fetch(`https://back-end-todo-production.up.railway.app/signin`, {
+      const response = await fetch(`${process.env.REACT_BACKEND_URL}/signin`, {
         method: 'POST',
+        mode: 'cors',           // Enable CORS
+        credentials: 'include',  // Include cookies if needed
         headers: {
           'Content-Type': 'application/json', // Tells the server to expect JSON data
         },
