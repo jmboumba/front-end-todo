@@ -27,7 +27,6 @@ const fetchData = async (userId) => {
     const response = await fetch(`https://back-end-todo-production.up.railway.app/todos/${userId}`, {
       method: 'GET',  // Use GET method to fetch data
       mode: 'cors',           // Enable CORS
-      credentials: 'include',  // Include cookies if needed
       headers: {
         'Content-Type': 'application/json',  // This tells the server the expected response type, but no body is included in GET
       }
@@ -67,7 +66,6 @@ const fetchData = async (userId) => {
       const response = await fetch(`https://back-end-todo-production.up.railway.app/signin`, {
         method: 'POST',
         mode: 'cors',           // Enable CORS
-        credentials: 'include',  // Include cookies if needed
         headers: {
           'Content-Type': 'application/json', // Tells the server to expect JSON data
         },
