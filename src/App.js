@@ -24,7 +24,7 @@ function App() {
 const fetchData = async (userId) => {
   try {
     // Dynamically interpolate user_id into the URL
-    const response = await fetch(`http://localhost:5000/todos/${userId}`, {
+    const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/todos/${userId}`, {
       method: 'GET',  // Use GET method to fetch data
       headers: {
         'Content-Type': 'application/json',  // This tells the server the expected response type, but no body is included in GET
@@ -62,7 +62,7 @@ const fetchData = async (userId) => {
 
     try {
       // Make the POST request using fetch
-      const response = await fetch('http://localhost:5000/signin', {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/signin`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json', // Tells the server to expect JSON data
