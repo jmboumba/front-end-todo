@@ -86,7 +86,7 @@
 .container-login{
   background-color: blue;
   height: 300px;
-  width: 50%;
+  width: 80%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -97,7 +97,7 @@
 .container-signup{
   background-color: blue;
   height: 500px;
-  width: 50%;
+  width: 80%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -106,7 +106,7 @@
 }
 
 .input{
-  width: 99%;
+  width: 300px;
   height: 30px;
 }
 
