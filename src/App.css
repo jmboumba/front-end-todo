@@ -53,7 +53,7 @@
   color: #fff;
   border: none;
   border-radius: 20px;
-  padding: 10px 20px;
+  padding: 5%;
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
@@ -87,7 +87,7 @@
 .container-login{
   background-color: blue;
   height: 300px;
-  width: 400px;
+  width: 60%;
   display: flex;
   flex-direction: column;
   align-items: center;

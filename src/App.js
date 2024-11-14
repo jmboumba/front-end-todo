@@ -104,7 +104,7 @@ const fetchData = async (userId) => {
         <nav>
           <ul>
             
-            <div className="inline" style={{marginLeft:"100px", fontSize:"20px", fontWeight:"bold"}}>
+            <div className="inline" style={{marginLeft:"0%", fontSize:"20px", fontWeight:"bold"}}>
               <li className="inline" ><a>Todo List</a></li>
             </div>
             <div className="inline" style={{paddingLeft:"60%"}}>
