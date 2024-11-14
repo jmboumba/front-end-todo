@@ -73,17 +73,17 @@
     background-size: cover; /* Optional: covers the entire background */
     background-repeat: no-repeat; /* Prevents the image from repeating */
     background-position: center; /* Centers the image */
-    height: 600px;
+    height: 700px;
 }
 
 .login-form{
-  padding: 5% 0% 0 30%;
+  transform: translate(28%, 20%); 
 }
 
 .container-login{
   background-color: blue;
   height: 300px;
-  width: 60%;
+  width: 40%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -94,7 +94,7 @@
 .container-signup{
   background-color: blue;
   height: 500px;
-  width: 60%;
+  width: 40%;
   display: flex;
   flex-direction: column;
   align-items: center;
