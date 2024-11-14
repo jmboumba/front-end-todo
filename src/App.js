@@ -191,7 +191,7 @@ const fetchData = async (userId) => {
                     </div>
                   </a>
                   <a onClick={() => setLogForm(false)}>
-                    <div className="span" style={{backgroundColor: logForm ? "white": "red",  }}>
+                    <div className="span" style={{backgroundColor: logForm ? "white": "red"}}>
                       <span>Sign up</span>
                     </div>
                   </a>

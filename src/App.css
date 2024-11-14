@@ -77,13 +77,13 @@
 }
 
 .login-form{
-  transform: translate(28%, 20%); 
+  transform: translate(15%, 20%); 
 }
 
 .container-login{
   background-color: blue;
   height: 300px;
-  width: 40%;
+  width: 70%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -94,7 +94,7 @@
 .container-signup{
   background-color: blue;
   height: 500px;
-  width: 40%;
+  width: 70%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -128,10 +128,11 @@ th{
 }
 
 .span{
-  width:10%;
+  width:20%;
   display:inline-block;
   font-size: 20px;
 }
+
 
 
 
