@@ -8,6 +8,7 @@ import axios from 'axios';
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [logForm, setLogForm] = useState(true);
   const [user_id, setUserId] = useState(''); 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -182,47 +183,128 @@ const fetchData = async (userId) => {
                     </div>
               ) : 
             (
-              <div className="login-form">
-            <h2>Sign In</h2>
-            
-            <div className='container-login'>
-              <form onSubmit={handleSubmit}>
-                  {error && <p style={{ color: 'red', paddingBottom:10 }}>{error}</p>}
-                  <div className='form-item'>
-                      <input
-                          type="email"
-                          style={{height:"30px"}}
-                          placeholder='Email'
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          required
-                      />
-                  </div>
-                  <div className='form-item'>
-                      <input
-                          type={showPassword ? 'text' : 'password'} 
-                          placeholder='Password'
-                          style={{height:"30px"}}
-                          value={password}
-                          onChange={(e) => setPassword(e.target.value)}
-                          required
-                      />
-                  </div>
+            <>
+                <div className='login-form'>
+                  <a onClick={() => setLogForm(true)}>
+                    <div className="span" style={{backgroundColor:logForm ? "red" : "white", }}>
+                      <span>Login</span>
+                    </div>
+                  </a>
+                  <a onClick={() => setLogForm(false)}>
+                    <div className="span" style={{backgroundColor: logForm ? "white": "red",  }}>
+                      <span>Sign up</span>
+                    </div>
+                  </a>
+                  {logForm ? (
+                      <div className='container-login'>
+                        <form onSubmit={handleSubmit}>
+                          {error && <p style={{ color: 'red', paddingBottom:10 }}>{error}</p>}
+                          <div className='form-item'>
+                              <input
+                                  className='input'
+                                  type="email"
+                                  placeholder='Email'
+                                  value={email}
+                                  onChange={(e) => setEmail(e.target.value)}
+                                  required
+                              />
+                          </div>
+                          <div className='form-item'>
+                              <input
+                                  className='input'
+                                  type={showPassword ? 'text' : 'password'} 
+                                  placeholder='Password'
+                                  value={password}
+                                  onChange={(e) => setPassword(e.target.value)}
+                                  required
+                              />
+                          </div>
+                          
+                          <div className='form-item'>
+                            <label>
+                                <input
+                                    type="checkbox"
+                                    checked={showPassword}
+                                    onChange={togglePasswordVisibility}
+                                />
+                                Show Password
+                            </label>
+                          </div>
+                          <button type='submit' className="btn">Sign in</button>
+                        </form>
+                      </div>
+                  ) : (
+                    <div className='container-signup'>
+                        <form onSubmit={handleSubmit}>
+                          {error && <p style={{ color: 'red', paddingBottom:10 }}>{error}</p>}
+                          <div className='form-item'>
+                              <input
+                                  className='input'
+                                  type="text"
+                                  placeholder='Firstname'
+                                  onChange={(e) => setEmail(e.target.value)}
+                                  required
+                              />
+                          </div>
+                          <div className='form-item'>
+                              <input
+                                  className='input'
+                                  type="text"
+                                  placeholder='Lastname'
+                                  onChange={(e) => setEmail(e.target.value)}
+                                  required
+                              />
+                          </div>
+                          <div className='form-item'>
+                              <input
+                                  className='input'
+                                  type="email"
+                                  placeholder='Email'
+                                  value={email}
+                                  onChange={(e) => setEmail(e.target.value)}
+                                  required
+                              />
+                          </div>
+                          <div className='form-item'>
+                              <input
+                                  className='input'
+                                  type={showPassword ? 'text' : 'password'} 
+                                  placeholder='Enter Password'
+                                  value={password}
+                                  onChange={(e) => setPassword(e.target.value)}
+                                  required
+                              />
+                          </div>
+
+                          <div className='form-item'>
+                              <input
+                                  className='input'
+                                  type={showPassword ? 'text' : 'password'} 
+                                  placeholder='Enter Password again'
+                                  value={password}
+                                  onChange={(e) => setPassword(e.target.value)}
+                                  required
+                              />
+                          </div>
+                          
+                          <div className='form-item'>
+                            <label>
+                                <input
+                                    type="checkbox"
+                                    checked={showPassword}
+                                    onChange={togglePasswordVisibility}
+                                />
+                                Show Password
+                            </label>
+                          </div>
+                          <button type='submit' className="btn">Sign up</button>
+                        </form>
+                      </div>
+                  )
                   
-                  <div className='form-item'>
-                    <label>
-                        <input
-                            type="checkbox"
-                            checked={showPassword}
-                            onChange={togglePasswordVisibility}
-                        />
-                        Show Password
-                    </label>
-                  </div>
-                  <button type='submit' className="btn">Sign in</button>
-              </form>
-            </div>
-        </div>
+                  }
+                </div>
+            </>
             )  
             }
       </div>

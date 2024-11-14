@@ -53,7 +53,8 @@
   color: #fff;
   border: none;
   border-radius: 20px;
-  padding: 5%;
+  width: 100px;
+  height: 40px;
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
@@ -72,16 +73,11 @@
     background-size: cover; /* Optional: covers the entire background */
     background-repeat: no-repeat; /* Prevents the image from repeating */
     background-position: center; /* Centers the image */
-    height: 522px;
+    height: 600px;
 }
 
 .login-form{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  padding: 7%;
+  padding: 5% 0% 0 30%;
 }
 
 .container-login{
@@ -93,6 +89,26 @@
   align-items: center;
   justify-content: center;
   color: white;
+}
+
+.container-signup{
+  background-color: blue;
+  height: 500px;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.input{
+  width: 250px;
+  height: 30px;
+}
+
+.log-title{
+  padding: 5% 0 0 0%;
 }
 
 .form-item{
@@ -110,6 +126,14 @@ table{
 th{
   border: 1px solid white;
 }
+
+.span{
+  width:10%;
+  display:inline-block;
+  font-size: 20px;
+}
+
+
 
 
 
