@@ -185,6 +185,7 @@ const fetchData = async (userId) => {
             (
             <>
                 <div className='login-form'>
+                  <div>
                   <a onClick={() => setLogForm(true)}>
                     <div className="span" style={{backgroundColor:logForm ? "red" : "white", }}>
                       <span>Login</span>
@@ -195,6 +196,7 @@ const fetchData = async (userId) => {
                       <span>Sign up</span>
                     </div>
                   </a>
+                  </div>
                   {logForm ? (
                       <div className='container-login'>
                         <form onSubmit={handleSubmit}>
