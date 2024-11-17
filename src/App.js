@@ -112,7 +112,7 @@ const fetchData = async (userId) => {
               { localStorage.getItem('user') ? (
                     <div>
                         <li className="inline" style={{marginRight:"10px"}}><a>Hi,  {firstname} {lastname}</a></li>
-                        <button className="btn" onClick={() => localStorage.removeItem('user')}>Logout</button>
+                        <button className="btn" onClick={() => setIsLoggedIn(false)}>Logout</button>
                     </div>
               ) : null}
             </div>
