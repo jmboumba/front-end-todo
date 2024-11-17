@@ -84,6 +84,7 @@ const fetchData = async (userId) => {
         setFirstname(data.firstname);
         setLastname(data.lastname);
         console.log(firstname);
+        localStorage.setItem('user', JSON.stringify(email));
         alert('Login successful!');
 
         fetchData(data.user_id);
@@ -104,15 +105,13 @@ const fetchData = async (userId) => {
       <div className="dotted-border">
         <nav>
           <ul>
-            
-            <div className="inline" style={{marginLeft:"0%", fontSize:"20px", fontWeight:"bold"}}>
+            <div className="inline" style={{ fontSize:"20px", fontWeight:"bold", marginLeft:"0px"}}>
               <li className="inline" ><a>Todo List</a></li>
             </div>
-            <div className="inline" style={{paddingLeft:"60%"}}>
-              
-              {isLoggedIn ? (
+            <div className="inline" style={{float:"right"}}>
+              { localStorage.getItem('user') ? (
                     <div>
-                        <li className="inline" style={{paddingRight:"30px"}}><a>Hi,  {firstname} {lastname}</a></li>
+                        <li className="inline" style={{marginRight:"10px"}}><a>Hi,  {firstname} {lastname}</a></li>
                         <button className="btn" onClick={() => setIsLoggedIn(false)}>Logout</button>
                     </div>
               ) : null}
@@ -123,7 +122,7 @@ const fetchData = async (userId) => {
       
       
       <div className='body'>
-          {isLoggedIn ? (
+          {localStorage.getItem('user') ? (
                     <div style={{padding: "70px 0px 0 100px", color:"white"}}>
                       <div className='inline'>
                         <p style={{fontSize:"25px"}}>Quick Todo</p><br></br>
@@ -312,7 +311,7 @@ const fetchData = async (userId) => {
       </div>
 
 
-      {isLoggedIn ? (
+      {localStorage.getItem('user') ? (
         <div>
         <center><br></br><br></br><br></br>
           <p style={{fontWeight:"bold"}}>TODOS</p><br></br><br></br><br></br>
