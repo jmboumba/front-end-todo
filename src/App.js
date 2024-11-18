@@ -101,7 +101,7 @@ const fetchData = async (userId) => {
 
   return (
     <div>
-      
+      <Header />
       <div className="dotted-border">
         <nav>
           <ul>
