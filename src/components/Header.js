@@ -13,10 +13,34 @@ function classNames(...classes) {
 }
 
 export default function Header() {
-    const reloadPage = () => {
-        localStorage.removeItem('user');
+
+    const logout = async (userId) => {
+      try {
+        const response = await fetch(`https://your-backend-url.com/logout/${userId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+    
+        // Handle the response
+        const data = await response.json();
+    
+        if (!response.ok) {
+          // Handle errors (e.g., 400, 404, 500)
+          console.error('Error:', data.message);
+        }
+    
+        console.log('User logged out successfully:', data.message);
+        localStorage.clear();        
         window.location.reload();
+    
+      } catch (error) {
+        // Handle network or other unexpected errors
+        console.error('Network error:', error);
+      }
     };
+    
 
   return (
     < >
@@ -107,7 +131,7 @@ export default function Header() {
                   <MenuItem>
                     <a
                       href="#"
-                      onClick={reloadPage}
+                      onClick={logout}
                       className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:outline-none"
                     >
                       Sign out
