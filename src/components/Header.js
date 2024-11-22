@@ -16,7 +16,7 @@ export default function Header() {
 
     const logout = async (userId) => {
       try {
-        const response = await fetch(`https://your-backend-url.com/logout/${userId}`, {
+        const response = await fetch(`https://back-end-todo-production.up.railway.app/logout/${userId}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
