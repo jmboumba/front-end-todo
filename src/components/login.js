@@ -91,7 +91,7 @@ export default function Login() {
 
           window.location.href = '/dashboard';  // Navigates to the dashboard with full page reload
   
-          fetchData(data.id);
+          fetchData(data.user);
   
         } else {
           const errorData = await response.json();
