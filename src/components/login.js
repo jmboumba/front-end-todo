@@ -13,10 +13,9 @@ export default function Login() {
     const navigate = useNavigate();
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [logForm, setLogForm] = useState(true);
-    const [user_id, setUserId] = useState(''); 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [cpassword, setCpassword] = useState('');
     const [firstname, setFirstname] = useState('');
     const [lastname, setLastname] = useState('');
     const [error, setError] = useState('');
@@ -90,12 +89,57 @@ export default function Login() {
           alert('Login successful!');
 
           window.location.href = '/dashboard';  // Navigates to the dashboard with full page reload
-  
-          fetchData(data.user);
-  
+
         } else {
           const errorData = await response.json();
           setError(errorData.message || 'Login failed');
+        }
+      } catch (error) {
+        setError('Something went wrong! Please try again.');
+      }
+  
+    };
+
+
+    const signup = async (e) => {
+      e.preventDefault();
+  
+      // Create the payload (data) to send in the POST request
+      const payload = {
+        firstname,
+        lastname,
+        email,
+        password,
+      };
+
+      if(password != cpassword){
+        setError("The password don't match each other, please correct them.");
+      }
+  
+      try {
+        // Make the POST request using fetch
+        const response = await fetch(`https://back-end-todo-production.up.railway.app/signup`, {
+          method: 'POST',
+          mode: 'cors',           // Enable CORS
+          headers: {
+            'Content-Type': 'application/json', // Tells the server to expect JSON data
+          },
+          body: JSON.stringify(payload), // Send the payload as a JSON string
+        });
+  
+        // Check if the response is OK (status 200)
+        if (response.ok) {
+          const data = await response.json(); // Parse the JSON response
+          setError('');
+
+          console.log(data);
+          alert('Account created successfully, connect to your account !');
+
+          setIsLogginForm(true);
+
+        } else {
+          const errorData = await response.json();
+          setError(errorData.message || 'Fails to create an account');
         }
       } catch (error) {
         setError('Something went wrong! Please try again.');
@@ -119,7 +163,7 @@ export default function Login() {
           {!isLogginForm ? "Create an Account" : "Login to Your Account"}
         </h2>
 
-        <form className="mt-6 space-y-4" onSubmit={login}>
+        <form className="mt-6 space-y-4" onSubmit={isLogginForm ? login : signup}>
             {error && <p style={{ color: 'red', paddingBottom:10 }}>{error}</p>}
           {/* Firstname Input */}
           {!isLogginForm ? (
@@ -202,8 +246,8 @@ export default function Login() {
                 className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 placeholder="Enter your password"
                 type={showPassword ? 'text' : 'password'} 
-                /* value={password} */
-                /* onChange={(e) => setPassword(e.target.value)} */
+                value={cpassword} 
+                onChange={(e) => setCpassword(e.target.value)} 
                 required
               />
             </div>
