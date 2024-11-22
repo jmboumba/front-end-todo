@@ -114,35 +114,35 @@ export default function Login() {
 
       if(password != cpassword){
         setError("The password don't match each other, please correct them.");
-      }
+      }else{
+        try {
+          // Make the POST request using fetch
+          const response = await fetch(`https://back-end-todo-production.up.railway.app/signup`, {
+            method: 'POST',
+            mode: 'cors',           // Enable CORS
+            headers: {
+              'Content-Type': 'application/json', // Tells the server to expect JSON data
+            },
+            body: JSON.stringify(payload), // Send the payload as a JSON string
+          });
+    
+          // Check if the response is OK (status 200)
+          if (response.ok) {
+            const data = await response.json(); // Parse the JSON response
+            setError('');
   
-      try {
-        // Make the POST request using fetch
-        const response = await fetch(`https://back-end-todo-production.up.railway.app/signup`, {
-          method: 'POST',
-          mode: 'cors',           // Enable CORS
-          headers: {
-            'Content-Type': 'application/json', // Tells the server to expect JSON data
-          },
-          body: JSON.stringify(payload), // Send the payload as a JSON string
-        });
+            console.log(data);
+            alert('Account created successfully, connect to your account !');
   
-        // Check if the response is OK (status 200)
-        if (response.ok) {
-          const data = await response.json(); // Parse the JSON response
-          setError('');
-
-          console.log(data);
-          alert('Account created successfully, connect to your account !');
-
-          setIsLogginForm(true);
-
-        } else {
-          const errorData = await response.json();
-          setError(errorData.message || 'Fails to create an account');
+            setIsLogginForm(true);
+  
+          } else {
+            const errorData = await response.json();
+            setError(errorData.message || 'Fails to create an account');
+          }
+        } catch (error) {
+          setError('Something went wrong! Please try again.');
         }
-      } catch (error) {
-        setError('Something went wrong! Please try again.');
       }
   
     };
