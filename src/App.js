@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-d
 import Home from "./components/Home";
 import Login from "./components/login";
 import Dashboard from "./components/Dashboard";
+import Profile from "./components/Profile";
 
 function App() {
   // Example authentication state (usually fetched from an API or context)
@@ -30,6 +31,10 @@ function App() {
         <Route
           path="/dashboard"
           element={isLoggedIn || localStorage.getItem('user') ? <Dashboard /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/profile"
+          element={isLoggedIn || localStorage.getItem('user') ? <Profile /> : <Navigate to="/login" />}
         />
       </Routes>
     </Router>
